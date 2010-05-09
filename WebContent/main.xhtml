@@ -1,0 +1,53 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:ui="http://java.sun.com/jsf/facelets">
+
+	<h:head>
+	<title>JSF 2.0 Simple Ajax...</title>
+	<style type="text/css" >
+		.ajaxResult { color: #440000;
+		              font-weight: bold;
+		              font-size: 18px;
+		              font-family: Arial, Helvetica, sans-serif;
+		}
+	</style>
+	<script language="javascript" type="text/javascript">
+		function showDateIndicator(data) {
+			  showIndicatorRegion(data, "dateIndicator");
+		}
+
+		function showIndicatorRegion(data, regionId) {
+			  if (data.status == "begin") {
+				  document.getElementById(regionId).style.display = "inline";
+			  } else if (data.status == "success") {
+				  document.getElementById(regionId).style.display = "none";
+			  }
+			}
+	</script>
+</h:head>
+<h:body>
+	<h:form id="myForm">
+
+		<h2>JSF 2.0 AJAX</h2>
+		<br/>
+
+		<h:commandButton value="Update Date" action="#{mainBean.update}">
+			<f:ajax render="myForm:viewDate" onevent="showDateIndicator" />
+		</h:commandButton>
+		<h:commandButton value="Auction" action="#{auctionBean.createAuction}">
+			
+		</h:commandButton>
+		<table border="0px">
+			<tr>
+				<td><h:outputText value="#{mainBean.date}" id="viewDate" /></td>
+				<td><span class="ajaxResult" id="dateIndicator" style="display: none; font-size: 60%"> <img src="ajax-loader.gif" /> Loading data from server... </span></td>
+			</tr>
+
+		</table>
+
+	</h:form>
+</h:body>
+
+</html>
